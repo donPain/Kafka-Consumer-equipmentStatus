@@ -8,12 +8,14 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 
 import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
@@ -31,5 +33,11 @@ public class KafkaConsumerService {
     @GetMapping("/getEquipmentStatus")
     public ArrayList<EquipmentStatus> getEquipmentStatusJson(){
         return equipmentStatusController.getEquipmentStatusJson();
+    }
+
+    @GetMapping("getEquipmentStatusByClientId")
+    public List<EquipmentStatus> getEquipmentStatusByClientId(@RequestParam(required = true) String clientId){
+        return equipmentStatusController.getEquipmentStatusJsonArrByClientId(clientId);
+
     }
 }
